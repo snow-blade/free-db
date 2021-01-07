@@ -36,8 +36,8 @@ typedef enum StatementType_t StatementType;
 
 struct Row_t {
   uint32_t id;
-  char username[COLUMN_USERNAME_SIZE];
-  char email[COLUMN_EMAIL_SIZE];
+  char username[COLUMN_USERNAME_SIZE+1];
+  char email[COLUMN_EMAIL_SIZE+1];
 };
 typedef struct Row_t Row;
 
@@ -160,7 +160,7 @@ ExecuteResult execute_insert(Statement* statement, Table* table) {
 
   Row* row_to_insert = &(statement->row_to_insert);
 
-  serialize_row(row_to_insert, row_slot(table, table->num_rows));
+  serialize_row(row_to_insert,row_slot(table, table->num_rows));
   table->num_rows += 1;
 
   return EXECUTE_SUCCESS;
